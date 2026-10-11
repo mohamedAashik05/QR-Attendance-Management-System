@@ -104,7 +104,7 @@ router.get("/api/trainer/qr", VerifyToken, (req, res) => {
 });
 
 router.get("/api/profile", VerifyToken, (req, res) => {
-  res.send(`welcome ${req.user.userName}`)
+  res.send(`welcome ${req.user.Email_ID}`)
 })
 
 export default router;

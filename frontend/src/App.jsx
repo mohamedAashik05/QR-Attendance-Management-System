@@ -4,7 +4,7 @@ import StdRegister from './pages/StudentRegister';
 import TrnrQR from './pages/TrainerQR';
 import TrnrRegister from './pages/TrainerRegister';
 import QRScanner from './pages/StdCamera';
-import TrainerLogin from './pages/trainerLogin';
+import TrainerLogin from './pages/TrainerLogin';
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 
 function App() {

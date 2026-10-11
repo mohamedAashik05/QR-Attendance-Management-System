@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { NewRegisterOrUpdate, USP_AttendanceDetails, USP_GetStudentDetails } from '../config/db.js'
+import { NewRegisterOrUpdate } from '../config/db.js'
 
 const router = Router()
 

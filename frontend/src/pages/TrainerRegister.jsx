@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 
 const inputClass =
   "rounded-lg border border-[#8A0149]/30 bg-[#F3F0E7] px-4 py-2.5 text-gray-800 " +
@@ -30,22 +31,14 @@ function TrainerRegister() {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch("/api/register/trainer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(data.message || "Registration failed");
-      }
+      await api.post("/register/trainer", form);
       setTimeout(() => {
         alert("Trainer registered successfully");
         navigate("/TrainerLogin");
       }, 2000);
-    } catch (error) {
-      setError(error.message || "Something went wrong. Please try again.");
+    } catch (requestError) {
+      const responseData = requestError.response?.data;
+      setError(responseData?.message || "Something went wrong. Please try again.");
     }
   };
 
