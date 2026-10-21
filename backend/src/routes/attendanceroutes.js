@@ -32,6 +32,7 @@ router.post(attendancePath, VerifyQrToken, async (req, res) => {
     const data = {
         student_ID: studentID,
         checkin_time: checkinTime,
+        trainer: req.qr?.trainer || null,
     }
 
     try {

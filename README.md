@@ -7,16 +7,15 @@ This application manages trainer authentication, time-limited attendance QR code
 ## Tech Stack
 
 - Frontend: React, Vite, React Router, Axios, Tailwind CSS, `qrcode.react`, `html5-qrcode`
-- Backend: Node.js, Express, JSON Web Tokens, bcrypt, `mssql`, `msnodesqlv8`
-- Database: Microsoft SQL Server
+- Backend: Node.js, Express, JSON Web Tokens, bcrypt, `mongoose`
+- Database: MongoDB (MongoDB Atlas or local MongoDB)
 
 ## Setup & Installation
 
 ### Prerequisites
 
 - Node.js 20 or newer
-- Microsoft SQL Server and the `ODBC Driver 18 for SQL Server`
-- A configured `QRAttendanceDB` database with the required tables and stored procedures
+- MongoDB Atlas connection string (or a local MongoDB instance running on `mongodb://localhost:27017/QRAttendanceDB`)
 
 ### Install dependencies
 
