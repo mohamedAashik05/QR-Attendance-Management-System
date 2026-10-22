@@ -41,9 +41,11 @@ function StdRegister() {
       }, 2000);
     } catch (requestError) {
       const responseData = requestError.response?.data;
-      setError(
-        responseData?.error || responseData?.message || "Student registration failed",
-      );
+      const errorMsg =
+        responseData?.error ||
+        responseData?.message ||
+        (requestError.message ? `Error: ${requestError.message}` : "Student registration failed");
+      setError(errorMsg);
     }
   };
 

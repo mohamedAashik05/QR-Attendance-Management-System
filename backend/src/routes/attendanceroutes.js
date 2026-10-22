@@ -3,7 +3,7 @@ import { USP_AttendanceDetails } from "../config/db.js"
 import { VerifyQrToken } from "./trainerAuthRoute.js";
 
 const router = Router()
-const attendancePath = "/api/AttendanceEntry"
+const attendancePath = ["/api/AttendanceEntry", "/AttendanceEntry"]
 
 function normalizeCheckinTime(value) {
     if (typeof value !== "string") return null

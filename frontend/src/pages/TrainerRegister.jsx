@@ -38,7 +38,11 @@ function TrainerRegister() {
       }, 2000);
     } catch (requestError) {
       const responseData = requestError.response?.data;
-      setError(responseData?.message || "Something went wrong. Please try again.");
+      const errorMsg =
+        responseData?.message ||
+        responseData?.error ||
+        (requestError.message ? `Error: ${requestError.message}` : "Something went wrong. Please try again.");
+      setError(errorMsg);
     }
   };
 

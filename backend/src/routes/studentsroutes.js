@@ -3,7 +3,7 @@ import { NewRegisterOrUpdate } from '../config/db.js'
 
 const router = Router()
 
-router.post("/api/StudentRegister", async (req, res) => {
+router.post(["/api/StudentRegister", "/StudentRegister"], async (req, res) => {
     const data= req.body
     try {
         const result = await NewRegisterOrUpdate(data)

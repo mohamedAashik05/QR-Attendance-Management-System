@@ -43,7 +43,7 @@ const VerifyToken = (req, res, next) => {
   }
 }
 
-router.post("/api/register/trainer", async (req, res) => {
+router.post(["/api/register/trainer", "/register/trainer"], async (req, res) => {
   try {
     const TrainerDetails = req.body;
 
@@ -53,20 +53,19 @@ router.post("/api/register/trainer", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(TrainerDetails.Password, 10);
-    TrainerDetails.Password = hashedPassword
-    console.log(TrainerDetails)
-    const result = await USP_Trainer_SignUP(TrainerDetails)
-    console.log("Signup request received");
-    return res.status(201).json({ message: "User account created successfully" });
+    TrainerDetails.Password = hashedPassword;
+    const result = await USP_Trainer_SignUP(TrainerDetails);
+    return res.status(201).json({ message: "User account created successfully", result });
 
   } 
   catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Internal server error" });
+    console.error("Trainer register error:", err);
+    const status = err.code === 11000 ? 409 : 500;
+    return res.status(status).json({ message: err.message || "Internal server error" });
   }
 });
 
-router.post("/api/login/trainer", async (req, res) => {
+router.post(["/api/login/trainer", "/login/trainer"], async (req, res) => {
   try {
     const Email_ID = req.body.Email_ID?.trim();
     const Password = req.body.Password;
@@ -87,11 +86,11 @@ router.post("/api/login/trainer", async (req, res) => {
   }
   catch (err) {
     console.error("Trainer login failed:", err)
-    res.status(500).json({ message: "Unable to log in trainer" })
+    res.status(500).json({ message: err.message || "Unable to log in trainer" })
   }
 })
 
-router.get("/api/trainer/qr", VerifyToken, (req, res) => {
+router.get(["/api/trainer/qr", "/trainer/qr"], VerifyToken, (req, res) => {
   const expiresAt = Date.now() + 20 * 60 * 1000;
   const token = jwt.sign(
     { type: "attendance-qr", trainer: req.user.Email_ID },
@@ -103,7 +102,7 @@ router.get("/api/trainer/qr", VerifyToken, (req, res) => {
   return res.json({ token, expiresAt });
 });
 
-router.get("/api/profile", VerifyToken, (req, res) => {
+router.get(["/api/profile", "/profile"], VerifyToken, (req, res) => {
   res.send(`welcome ${req.user.Email_ID}`)
 })
 
