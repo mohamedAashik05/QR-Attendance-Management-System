@@ -2,8 +2,12 @@ import axios from "axios";
 
 export const AUTH_TOKEN_KEY = "trainerToken";
 
-// Get base URL from environment or default to /api for local dev proxy
-let rawBaseURL = (import.meta.env.VITE_API_BASE_URL || "").trim();
+// Get base URL from environment (accepts either VITE_API_BASE_URL or VITE_BACKEND_URL)
+let rawBaseURL = (
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_BACKEND_URL ||
+  ""
+).trim();
 
 // Strip any trailing slashes
 rawBaseURL = rawBaseURL.replace(/\/+$/, "");
