@@ -31,4 +31,14 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 405) {
+      error.message = "VITE_API_BASE_URL is missing or pointing to Vercel instead of your Render backend. Please set VITE_API_BASE_URL in Vercel and redeploy.";
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;
